@@ -1,7 +1,7 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
-    using UniModules.UniGame.Core.Runtime.Common;
+    using UniGame.Common;
 
     [Serializable]
     public class SpreadsheetProcessorValue : VariantValue<

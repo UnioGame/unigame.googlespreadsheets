@@ -1,7 +1,7 @@
-﻿namespace UniModules.UniGame.GoogleSpreadsheets.Runtime.Attributes
+﻿namespace UniGame.GoogleSpreadsheets.Runtime
 {
     using System;
-    using Editor.SheetsImporter;
+    using global::UniGame.GoogleSpreadsheets.Runtime;
 
     [AttributeUsage(AttributeTargets.Class|AttributeTargets.Field)]
     public class SpreadsheetTargetAttribute : Attribute, ISpreadsheetDescription

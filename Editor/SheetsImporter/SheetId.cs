@@ -1,7 +1,7 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
-    using UniModules.UniGame.GoogleSpreadsheets.Editor.SheetsImporter;
+    using Runtime;
 
     [Serializable]
     public class SheetId

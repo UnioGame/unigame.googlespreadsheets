@@ -5,6 +5,16 @@ Unity3D Google Spreadsheet export/import library
 
 **Odin Inspector Asset recommended to usage with this Package (https://odininspector.com)**
 
+# Installation
+
+Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json new dependency:
+
+```json
+  "dependencies": {
+    "com.unigame.unityspreadsheets" : "https://github.com/UnioGame/unigame.googlespreadsheets.git",
+  }
+```
+
 ## Features
 
 - Export Serializable Project Data into Google Spreadsheet

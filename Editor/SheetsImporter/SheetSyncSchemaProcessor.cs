@@ -1,13 +1,12 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using UniModules.UniCore.Runtime.ReflectionUtils;
-    using UniModules.UniCore.Runtime.Utils;
-    using UniModules.UniGame.GoogleSpreadsheets.Editor.SheetsImporter;
-    using UniModules.UniGame.GoogleSpreadsheets.Runtime.Attributes;
+    using Runtime;
+    using UniGame.Runtime.ReflectionUtils;
+    using UniGame.Runtime.Utils;
 
     public class SheetSyncSchemaProcessor
     {
@@ -23,7 +22,7 @@
         
         public SheetSyncScheme CreateSyncScheme(Type type)
         {
-            var sheetItemAttribute = type.GetCustomAttribute<SpreadsheetTargetAttribute>();
+            var sheetItemAttribute = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetTargetAttribute>(type);
             var spreadsheetValue = new SyncSpreadsheetValue()
             {
                 spreadsheet = sheetItemAttribute,
@@ -76,8 +75,7 @@
         public static void FillSyncValuesFromFields(Dictionary<string, SyncValue> map, Type sourceType, string keyField)
         {
             var fields = sourceType.GetInstanceFields();
-
-            var spreadsheetTargetAttribute = sourceType.GetCustomAttribute<SpreadsheetTargetAttribute>();
+            var spreadsheetTargetAttribute = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetTargetAttribute>(sourceType);
 
             var fieldsAttributes = new List<SpreadsheetValueAttribute>();
             var keyFieldSheetName = GoogleSpreadsheetConstants.KeyField;
@@ -86,7 +84,7 @@
 
             foreach (var field in fields)
             {
-                var attributeInfo = field.FieldType.GetCustomAttribute<SpreadsheetValueAttribute>();
+                var attributeInfo = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetValueAttribute>(field.FieldType);
 
                 fieldsAttributes.Add(attributeInfo);
 
@@ -130,7 +128,7 @@
         public static void FillSyncValuesFromProperties(Dictionary<string, SyncValue> map, Type sourceType, string keyField)
         {
             var properties = sourceType.GetProperties();
-            var spreadsheetTargetAttribute = sourceType.GetCustomAttribute<SpreadsheetTargetAttribute>();
+            var spreadsheetTargetAttribute = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetTargetAttribute>(sourceType);
 
             var fieldsAttributes = new List<SpreadsheetValueAttribute>();
             var keyFieldSheetName = GoogleSpreadsheetConstants.KeyField;
@@ -139,7 +137,7 @@
 
             foreach (var propertyInfo in properties)
             {
-                var attributeInfo = propertyInfo.PropertyType.GetCustomAttribute<SpreadsheetValueAttribute>();
+                var attributeInfo = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetValueAttribute>(propertyInfo.PropertyType);
                 fieldsAttributes.Add(attributeInfo);
                 
                 if (attributeInfo is { isKey: true })

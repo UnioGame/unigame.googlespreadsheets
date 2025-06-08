@@ -1,6 +1,4 @@
-﻿using System.Data;
-
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;

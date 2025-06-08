@@ -1,8 +1,7 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
-    using Editor;
 
     [Serializable]
     public abstract class SpreadsheetSerializableImporter : ISpreadsheetAssetsProcessor

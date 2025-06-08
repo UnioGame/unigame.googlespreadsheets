@@ -6,7 +6,7 @@
 #endif
     using UnityEngine;
     using System;
-    using global::UniGame.GoogleSpreadsheetsImporter.Editor;
+    using global::UniGame.GoogleSpreadsheets.Editor;
 
     [Serializable]
     public class GoogleImportersCommonOperations

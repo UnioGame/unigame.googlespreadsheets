@@ -1,13 +1,11 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using UnityEngine.Serialization;
     using UniCore.Runtime.ProfilerTools;
     using UnityEditor;
     using UnityEngine;
-    using Object = UnityEngine.Object;
 
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
@@ -15,7 +13,7 @@
     
 #endif
     
-    [CreateAssetMenu(menuName = "UniGame/Google/Importers/PipelineImporter",fileName = nameof(PipelineImporter))]
+    [CreateAssetMenu(menuName = "UniGame/Google/PipelineImporter",fileName = nameof(PipelineImporter))]
     public class PipelineImporter : BaseSpreadsheetProcessor
     {
         private static Color _oddColor = new Color(0.2f, 0.4f, 0.3f);

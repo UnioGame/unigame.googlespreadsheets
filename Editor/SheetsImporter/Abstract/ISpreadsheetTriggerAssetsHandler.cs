@@ -1,8 +1,6 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
-    using System;
     using global::UniGame.Core.Runtime;
-    using Editor;
 
     public interface ISpreadsheetTriggerAssetsHandler : IResetable
     {

@@ -1,4 +1,4 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor.CoProcessors
+﻿namespace UniGame.GoogleSpreadsheets.Editor.CoProcessors
 {
     using System;
     using System.Collections.Generic;

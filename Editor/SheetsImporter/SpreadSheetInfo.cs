@@ -1,10 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+namespace UniGame.GoogleSpreadsheets.Editor
 {
-        using NUnit.Framework;
-        using UnityEditor.PackageManager;
 #if ODIN_INSPECTOR
         using Sirenix.OdinInspector;
 #endif

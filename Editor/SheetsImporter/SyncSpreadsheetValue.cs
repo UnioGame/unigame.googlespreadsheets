@@ -1,7 +1,7 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
-    using UniModules.UniGame.GoogleSpreadsheets.Runtime.Attributes;
+    using Runtime;
 
     public class SyncSpreadsheetValue : IEquatable<SyncSpreadsheetValue>
     {

@@ -1,4 +1,4 @@
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,8 @@ namespace UniGame.GoogleSpreadsheetsImporter.Editor
     using Google.Apis.Services;
     using Google.Apis.Sheets.v4;
     using Google.Apis.Util.Store;
-    using UniCore.Runtime.ProfilerTools;
-    using UniModules.UniCore.Runtime.DataFlow;
-    using UniModules.UniGame.GoogleSpreadsheets.Editor.SheetsImporter;
+    using Runtime;
+    using UniGame.Runtime.DataFlow;
     using UnityEngine;
 
     public class GoogleSpreadsheetClient : IGoogleSpreadsheetClient
@@ -109,7 +108,7 @@ namespace UniGame.GoogleSpreadsheetsImporter.Editor
             var timeEnd = DateTime.Now;
             var timePassed = timeEnd - timeStart;
             
-            GameLog.Log($"Sheet {sheet.Name} uploaded in {timePassed.TotalSeconds} sec",Color.green);
+            Debug.Log($"Sheet {sheet.Name} uploaded in {timePassed.TotalSeconds} sec");
             
             return true;
         }

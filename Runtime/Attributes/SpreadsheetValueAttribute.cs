@@ -1,4 +1,4 @@
-﻿namespace UniModules.UniGame.GoogleSpreadsheets.Runtime.Attributes
+﻿namespace UniGame.GoogleSpreadsheets.Runtime
 {
     using System;
 

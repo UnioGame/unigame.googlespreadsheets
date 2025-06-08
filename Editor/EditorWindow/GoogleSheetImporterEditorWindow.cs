@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using UniGame.GoogleSpreadsheetsImporter.Editor;
 
 #if ODIN_INSPECTOR
 
 namespace UniModules.UniGame.GoogleSpreadsheetsImporter.Editor.EditorWindow
 {
     using UniModules.Editor;
-    using global::UniGame.GoogleSpreadsheetsImporter.Editor;
+    using global::UniGame.GoogleSpreadsheets.Editor;
     using Sirenix.OdinInspector;
     using Sirenix.OdinInspector.Editor;
     using UnityEditor;

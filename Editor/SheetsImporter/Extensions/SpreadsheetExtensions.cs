@@ -1,12 +1,11 @@
 ﻿using System.Data;
 using System.Linq;
-using UniGame.GoogleSpreadsheetsImporter.Editor.CoProcessors;
 
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
-    using Editor;
+    using CoProcessors;
     using UniModules.UniGame.TypeConverters.Editor;
     using UniModules.UniGame.TypeConverters.Editor.Abstract;
     using Object = UnityEngine.Object;

@@ -1,15 +1,12 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
     using System.Text;
-    using Google.Apis.Sheets.v4.Data;
-    using UniModules.UniCore.Runtime.Utils;
+    using UniGame.Runtime.Utils;
     using UniModules.UniGame.TypeConverters.Editor;
-    using UnityEditor;
-    using UnityEngine;
 
     [Serializable]
     public class SheetData

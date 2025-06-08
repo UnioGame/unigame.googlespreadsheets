@@ -1,8 +1,6 @@
 ﻿using System;
-using Google.Apis.Sheets.v4;
-using Google.Apis.Sheets.v4.Data;
 
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+namespace UniGame.GoogleSpreadsheets.Editor
 {
     [Serializable]
     public class GetRequestData<TRequest,TValue>

@@ -1,8 +1,6 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
-    using global::UniGame.GoogleSpreadsheetsImporter.Editor;
-    using UnityEditor;
 
     [Serializable]
     public class AssetFolderByMonoScriptImporter : FolderAssetsImporter

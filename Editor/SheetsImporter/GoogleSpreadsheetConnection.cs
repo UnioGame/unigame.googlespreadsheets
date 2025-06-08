@@ -1,7 +1,7 @@
 ﻿using Google.Apis.Util;
 using UniGame.Core.Runtime.Extension;
 
-namespace UniGame.GoogleSpreadsheetsImporter.Editor
+namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
@@ -10,7 +10,7 @@ namespace UniGame.GoogleSpreadsheetsImporter.Editor
     using Cysharp.Threading.Tasks;
     using Google.Apis.Sheets.v4;
     using Google.Apis.Sheets.v4.Data;
-    using UniModules.UniCore.Runtime.Utils;
+    using UniGame.Runtime.Utils;
     using UnityEngine;
 
     public class GoogleSpreadsheetConnection : IStringUnique

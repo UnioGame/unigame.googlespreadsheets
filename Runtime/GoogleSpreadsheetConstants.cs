@@ -1,4 +1,4 @@
-﻿namespace UniModules.UniGame.GoogleSpreadsheets.Editor.SheetsImporter
+﻿namespace UniGame.GoogleSpreadsheets.Runtime
 {
     public class GoogleSpreadsheetConstants
     {

@@ -1,7 +1,5 @@
-﻿namespace UniGame.GoogleSpreadsheetsImporter.Editor
+﻿namespace UniGame.GoogleSpreadsheets.Editor
 {
-    using System.Collections.Generic;
-
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
 #endif
