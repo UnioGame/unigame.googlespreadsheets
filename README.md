@@ -27,6 +27,7 @@ Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json n
 "dependencies" : {
     "unigame.unityspreadsheets" : "https://github.com/UnioGame/unigame.googlespreadsheets.git",
     "com.unigame.typeconverters" : "https://github.com/UnioGame/unigame.typeconverters.git",
+    "com.unigame.addressablestools" : "https://github.com/UnioGame/unigame.addressables.git",
     "com.unigame.unicore": "https://github.com/UnioGame/unigame.core.git",
     "com.cysharp.unitask" : "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unigame.google.api.v4" :  "https://github.com/UnioGame/google.api.v4.git"

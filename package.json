@@ -4,7 +4,7 @@
   "displayName": "UniGame Google Spreadsheets to Unity",
   "description": "Allow to import Google Spreadsheets to Unity and write it back to Google Spreadsheets",
   "unity": "2022.1",
-  "version": "2025.0.4",
+  "version": "2025.0.5",
   "keywords": [
     "nodes",
     "spreadsheet",
@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "com.unigame.typeconverters" : "https://github.com/UnioGame/unigame.typeconverters.git",
+    "com.unigame.addressablestools" : "https://github.com/UnioGame/unigame.addressables.git",
     "com.unigame.unicore": "https://github.com/UnioGame/unigame.core.git",
     "com.cysharp.unitask" : "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
     "com.unigame.google.api.v4" :  "https://github.com/UnioGame/google.api.v4.git",
