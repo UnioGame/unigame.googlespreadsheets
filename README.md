@@ -66,9 +66,7 @@ When you create an Desktop API KEY:
 
 ### Spreadsheet Id's
 
-- Now you can specify your spreadsheets
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editor.png)
+Now you can specify your spreadsheets
 
 - Id's of your sheet can be found right from web page url
 
