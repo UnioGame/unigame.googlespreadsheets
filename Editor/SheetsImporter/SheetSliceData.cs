@@ -11,7 +11,7 @@
         public string           keyId    = string.Empty;
         public string           keyValue = string.Empty;
         public int              index    = -1;
-        public List<SheetValue> data     = new List<SheetValue>();
+        public List<SheetValue> data     = new();
 
         public SheetValue this[string fieldName] {
             get {

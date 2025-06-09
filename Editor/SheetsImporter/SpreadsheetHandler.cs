@@ -3,9 +3,15 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    
     using Core.Runtime;
     using UniGame.Runtime.DataFlow;
     using UnityEngine;
+    using UnityEngine.UIElements;
+
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
     
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
@@ -14,7 +20,7 @@
     [Serializable]
     public class SpreadsheetHandler : ISpreadsheetAssetsProcessor, IResetable
     {
-        private static Color _oddColor = new Color(0.2f, 0.4f, 0.3f);
+        private static Color _oddColor = new(0.2f, 0.4f, 0.3f);
         
         #region inspector
 
@@ -23,12 +29,17 @@
 #if ODIN_INSPECTOR
         [InfoBox("Reload spreadsheet on each reimport action")]
 #endif
+        [Tooltip("Reload spreadsheet on each reimport action")]
         public bool autoReloadSpreadsheetOnImport = true;
 
 #if ODIN_INSPECTOR
         [ListDrawerSettings(ElementColor = nameof(GetElementColor),ListElementLabelName = "Name")]
 #endif
-        public List<SpreadsheetProcessorValue> importers = new List<SpreadsheetProcessorValue>();
+#if ALCHEMY_INSPECTOR
+        [ListViewSettings(ShowAlternatingRowBackgrounds = AlternatingRowBackground.All, 
+            ShowFoldoutHeader = false,Reorderable = true)]
+#endif
+        public List<SpreadsheetProcessorValue> importers = new();
 
         #endregion
 

@@ -6,6 +6,9 @@
     using UnityEditor;
     using UnityEngine;
 
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
 #endif
@@ -13,6 +16,8 @@
     [Serializable]
     public abstract class SerializableSpreadsheetProcessor : ISpreadsheetProcessor
     {
+        public const string CommandsGroup = "commands";
+        
         public string importerName = string.Empty;
         
         public bool disableDBOnImport = false;
@@ -66,6 +71,12 @@
         [EnableIf(nameof(IsValidData))]
         [ShowIf(nameof(CanImport))]
 #endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(CommandsGroup)]
+        [Button]
+        [EnableIf(nameof(IsValidData))]
+        [ShowIf(nameof(CanImport))]
+#endif
         public void Import()
         {
             if (IsValidData == false) return;
@@ -97,6 +108,12 @@
         [Button(ButtonSizes.Medium,Icon = SdfIconType.CloudUpload)]
         [EnableIf("IsValidData")]
         [ShowIf("CanExport")]
+#endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(CommandsGroup)]
+        [Button]
+        [EnableIf(nameof(IsValidData))]
+        [ShowIf(nameof(CanExport))]
 #endif
         public void Export()
         {

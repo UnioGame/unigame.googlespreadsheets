@@ -6,7 +6,16 @@
     using Abstract;
     using UnityEngine;
     using System.Data;
+
     using UniModules;
+    
+#if ODIN_INSPECTOR
+    using Sirenix.OdinInspector;
+#endif
+    
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
 
     [CreateAssetMenu(menuName = "UniGame/Google/CoProcessors/CoProcessor", fileName = nameof(CoProcessor))]
     public class CoProcessor : ScriptableObject, ICoProcessorHandle
@@ -45,17 +54,21 @@
         #endregion
         
 #if ODIN_INSPECTOR
-        [Sirenix.OdinInspector.ListDrawerSettings(Expanded = true)]
+        [ListDrawerSettings(Expanded = true)]
+#endif
+#if ALCHEMY_INSPECTOR
+        [ListViewSettings]
+        [ShowInInspector]
 #endif
         [SerializeReference]
-        private List<ICoProcessorHandle> _processors = new List<ICoProcessorHandle>();
+        public List<ICoProcessorHandle> processors = new(){new NestedTableCoProcessor()};
 
         public void Apply(SheetValueInfo valueInfo, DataRow row)
         {
             if(valueInfo == null)
                 throw new ArgumentNullException(nameof(valueInfo));
 
-            foreach (var coProcessor in _processors)
+            foreach (var coProcessor in processors)
             {
                 coProcessor.Apply(valueInfo, row);
             }
@@ -63,12 +76,15 @@
 
         [ContextMenu(nameof(ResetToDefault))]
 #if ODIN_INSPECTOR
-        [Sirenix.OdinInspector.Button]
+        [Button]
+#endif
+#if ALCHEMY_INSPECTOR
+        [Button]
 #endif
         public void ResetToDefault()
         {
-            _processors.Clear();
-            _processors.Add(new NestedTableCoProcessor());
+            processors.Clear();
+            processors.Add(new NestedTableCoProcessor());
         }
     }
 }

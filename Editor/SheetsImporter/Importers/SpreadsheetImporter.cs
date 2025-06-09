@@ -6,7 +6,7 @@
     public class SpreadsheetImporter<T> : BaseSpreadsheetProcessor
         where T : SerializableSpreadsheetProcessor
     {
-        public List<T> importers = new List<T>();
+        public List<T> importers = new();
 
         public override bool CanImport => importers.Any(x => x.CanImport);
         public override bool CanExport => importers.Any(x => x.CanExport);

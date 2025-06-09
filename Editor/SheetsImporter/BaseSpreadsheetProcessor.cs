@@ -3,19 +3,23 @@
     using Core.Runtime;
     using UniGame.Runtime.DataFlow;
     using UnityEngine;
-
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
 #endif
 
     public abstract class BaseSpreadsheetProcessor : ScriptableObject, ISpreadsheetProcessor
     {
+        public const string CommandsGroup = "commands";
+        
         public string importerName = string.Empty;
 
         private IGoogleSpreadsheetClient _client;
         private IGooglsSpreadsheetClientStatus _status;
         
-        private LifeTimeDefinition _lifeTimeDefinition = new LifeTimeDefinition();
+        private LifeTimeDefinition _lifeTimeDefinition = new();
 
         #region public properties
 
@@ -73,6 +77,12 @@
         [EnableIf(nameof(IsValidData))]
         [ShowIf(nameof(CanImport))]
 #endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(CommandsGroup)]
+        [Button]
+        [EnableIf(nameof(IsValidData))]
+        [ShowIf(nameof(CanImport))]
+#endif
         public void Import()
         {
             if (IsValidData == false) return;
@@ -82,6 +92,12 @@
 #if ODIN_INSPECTOR
         [ButtonGroup]
         [Button(ButtonSizes.Small,Icon = SdfIconType.CloudUpload)]
+        [EnableIf(nameof(IsValidData))]
+        [ShowIf(nameof(CanExport))]
+#endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(CommandsGroup)]
+        [Button]
         [EnableIf(nameof(IsValidData))]
         [ShowIf(nameof(CanExport))]
 #endif

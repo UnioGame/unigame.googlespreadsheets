@@ -5,7 +5,12 @@
     using CoProcessors;
     using UniModules.UniGame.TypeConverters.Editor;
     using UnityEngine;
+    using UnityEngine.UIElements;
 
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
+        
 #if ODIN_INSPECTOR
     using Sirenix.OdinInspector;
 #endif
@@ -26,7 +31,8 @@
 #endif
         public string user = "user";
 
-        [Tooltip("timeout to google auth in sec")] [Range(10, 100)]
+        [Tooltip("timeout to google auth in sec")] 
+        [Range(10, 100)]
         public float authTimeout = 30f;
 
 #if ODIN_INSPECTOR
@@ -42,13 +48,19 @@
         [InfoBox("Add any valid spreadsheet id's")]
         [TableList]
 #endif
-        public List<SpreadSheetInfo> sheets = new List<SpreadSheetInfo>();
+#if ALCHEMY_INSPECTOR
+        [ListViewSettings(ShowAlternatingRowBackgrounds = AlternatingRowBackground.All,ShowFoldoutHeader = true)]
+#endif
+        public List<SpreadSheetInfo> sheets = new();
 
         [Space(8)]
 #if ODIN_INSPECTOR
         [TitleGroup("Type Converters")]
         [InlineEditor()]
         [HideLabel]
+#endif
+#if ALCHEMY_INSPECTOR
+        [InlineEditor]
 #endif
         public ObjectTypeConverter typeConverter;
 
@@ -58,11 +70,17 @@
         [InlineEditor(InlineEditorObjectFieldModes.Boxed, Expanded = true)]
         [HideLabel]
 #endif
+#if ALCHEMY_INSPECTOR
+        [InlineEditor]
+#endif
         public CoProcessor coProcessors;
 
 
 #if ODIN_INSPECTOR
         [OnInspectorInit]
+#endif
+#if ALCHEMY_INSPECTOR
+        [OnInspectorEnable]
 #endif
         private void OnInspectorInitialize()
         {

@@ -6,7 +6,7 @@
     [Serializable]
     public class SyncValue
     {
-        public static readonly SyncValue Empty = new SyncValue();
+        public static readonly SyncValue Empty = new();
         
         public FieldInfo fieldInfo;
         public PropertyInfo propertyInfo;

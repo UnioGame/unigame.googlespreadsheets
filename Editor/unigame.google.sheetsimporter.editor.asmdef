@@ -8,7 +8,9 @@
         "GUID:18e001e7783f9fa4f91ffb0f7d0ecfc5",
         "GUID:aa3c0ee8c88c4d8aa46a7f02e19ed9a2",
         "GUID:a798b6c995887d74ea9a129f318438cb",
-        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:88be65f96b86746888c927a5c8ff3534",
+        "GUID:5fd453cd0d182422093c4a764fd5eadb"
     ],
     "includePlatforms": [
         "Editor"
@@ -19,6 +21,12 @@
     "precompiledReferences": [],
     "autoReferenced": true,
     "defineConstraints": [],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.annulusgames.alchemy",
+            "expression": "",
+            "define": "ALCHEMY_INSPECTOR"
+        }
+    ],
     "noEngineReferences": false
 }

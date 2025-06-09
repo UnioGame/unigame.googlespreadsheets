@@ -32,12 +32,12 @@ namespace UniGame.GoogleSpreadsheets.Editor
 
         private readonly string _spreadsheetId;
 
-        private List<string> _sheetsTitles = new List<string>();
+        private List<string> _sheetsTitles = new();
         private MajorDimension _dimension = MajorDimension.COLUMNS;
         private SheetsService _service;
         private Spreadsheet _spreadSheet;
-        private Dictionary<string, SheetData> _sheetValueCache = new Dictionary<string, SheetData>(4);
-        private List<SheetData> _sheets = new List<SheetData>();
+        private Dictionary<string, SheetData> _sheetValueCache = new(4);
+        private List<SheetData> _sheets = new();
 
         #region constructor
 

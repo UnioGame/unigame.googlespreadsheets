@@ -12,7 +12,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
 
     public static class SpreadsheetExtensions
     {
-        public static readonly AssetSheetDataProcessor DefaultProcessor = new AssetSheetDataProcessor(CoProcessor.Processor);
+        public static readonly AssetSheetDataProcessor DefaultProcessor = new(CoProcessor.Processor);
 
         public static bool UpdateSheetValue(this object source, ISpreadsheetData data, string sheetId, string sheetKeyField)
         {

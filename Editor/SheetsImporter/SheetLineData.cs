@@ -8,7 +8,7 @@
     public class SheetLineData 
     {
         public string        id   = string.Empty;
-        public List<SheetValue>  data = new List<SheetValue>();
+        public List<SheetValue>  data = new();
         public int index = -1;
         
         public SheetValue this[string fieldName] {

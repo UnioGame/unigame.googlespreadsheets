@@ -17,7 +17,7 @@
     {
         private readonly ICoProcessorHandle _coProcessorHandle;
         
-        private static readonly SheetSyncScheme _dummyItem = new SheetSyncScheme(string.Empty);
+        private static readonly SheetSyncScheme _dummyItem = new(string.Empty);
 
         public AssetSheetDataProcessor(ICoProcessorHandle coProcessorHandle)
         {

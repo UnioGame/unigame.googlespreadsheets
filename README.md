@@ -5,9 +5,17 @@ Unity3D Google Spreadsheet export/import library
 
 **Odin Inspector Asset recommended to usage with this Package (https://odininspector.com)**
 
-As an alternative you can use Tri-Inspector Open Source Asset - https://github.com/codewriter-packages/Tri-Inspector
+As an alternative you can use:
 
-Or Alchemy Open Source Asset - https://github.com/annulusgames/Alchemy
+- Alchemy Open Source Asset - https://github.com/annulusgames/Alchemy
+
+```
+{
+    "dependencies": {
+        "com.annulusgames.alchemy": "https://github.com/annulusgames/Alchemy.git?path=/Alchemy/Assets/Alchemy"
+    }
+}
+```
 
 # Installation
 

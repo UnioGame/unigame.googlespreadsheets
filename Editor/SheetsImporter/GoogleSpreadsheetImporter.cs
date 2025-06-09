@@ -6,20 +6,27 @@
     using Core.Runtime;
     using Runtime;
     using UniGame.Runtime.DataFlow;
-    using UniModules.UniGame.GoogleSpreadsheetsImporter.Editor.EditorWindow;
+    
     using UnityEditor;
     using UnityEngine;
 
+#if ALCHEMY_INSPECTOR
+    using Alchemy.Inspector;
+#endif
+    
 #if ODIN_INSPECTOR
+    using UniModules.UniGame.GoogleSpreadsheetsImporter.Editor.EditorWindow;
     using Sirenix.OdinInspector;
 #endif
     
     //[CreateAssetMenu(menuName = "UniGame/Google/GoogleSpreadSheetImporter", fileName = nameof(GoogleSpreadsheetImporter))]
     public class GoogleSpreadsheetImporter : ScriptableObject, ILifeTimeContext
     {
-        private const int DefaultButtonsWidth = 100;
-        private const string SettingsTab = "settings";
-        private const string ImporterTab = "importers";
+        public const int DefaultButtonsWidth = 100;
+        public const string ButtonsGroup = "сommands";
+        public const string ButtonsActionsGroup = "actions";
+        public const string SettingsTab = "settings";
+        public const string ImporterTab = "importers";
 
         #region inspector
 
@@ -35,14 +42,23 @@
         [HideLabel]
         //[BoxGroup(ImporterTab + "/Assets Handlers")]
 #endif
-        public SpreadsheetHandler sheetsItemsHandler = new SpreadsheetHandler();
+#if ALCHEMY_INSPECTOR
+        [TabGroup(ImporterTab, ImporterTab)]
+        [InlineEditor]
+#endif
+        public SpreadsheetHandler sheetsItemsHandler = new();
 
 #if ODIN_INSPECTOR
         [TabGroup(ImporterTab, SettingsTab)] 
         [InlineProperty] 
         [HideLabel]
 #endif
-        public GoogleSpreadsheetSettings settings = new GoogleSpreadsheetSettings();
+#if ALCHEMY_INSPECTOR
+        [TabGroup(ImporterTab, SettingsTab)]
+        [InlineEditor]
+        [Order(0)]
+#endif
+        public GoogleSpreadsheetSettings settings = new();
 
         #endregion
 
@@ -80,6 +96,11 @@
         [Button("Reconnect", ButtonSizes.Large, Icon = SdfIconType.SendCheck)]
         [EnableIf(nameof(IsValidToConnect))]
 #endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(ButtonsGroup)]
+        [Button]
+        [Order(0)]
+#endif
         public void Reconnect()
         {
             _lifeTime?.Release();
@@ -98,6 +119,10 @@
         [ResponsiveButtonGroup("Commands")]
         [Button("Reset", ButtonSizes.Large, Icon = SdfIconType.Eraser)]
 #endif
+#if ALCHEMY_INSPECTOR
+        [HorizontalGroup(ButtonsGroup)]
+        [Button]
+#endif
         public void ResetCredentials()
         {
             if (Directory.Exists(GoogleSpreadsheetConstants.TokenKey))
@@ -110,6 +135,12 @@
         [PropertyOrder(-1)]
         [Button("Import All", ButtonSizes.Small, Icon = SdfIconType.CloudDownloadFill)]
         [ResponsiveButtonGroup("importers/importers/commands",DefaultButtonSize = ButtonSizes.Small)]
+        [EnableIf(nameof(HasConnectedSheets))]
+#endif
+#if ALCHEMY_INSPECTOR
+        [Order(1)]
+        [HorizontalGroup(ButtonsActionsGroup)]
+        [Button]
         [EnableIf(nameof(HasConnectedSheets))]
 #endif
         public void Import()
@@ -134,6 +165,12 @@
 #if ODIN_INSPECTOR
         [Button("Export All", ButtonSizes.Small, Icon = SdfIconType.CloudUploadFill)]
         [ResponsiveButtonGroup("importers/importers/commands")]
+        [EnableIf(nameof(HasConnectedSheets))]
+#endif
+#if ALCHEMY_INSPECTOR
+        [Order(1)]
+        [HorizontalGroup(ButtonsActionsGroup)]
+        [Button]
         [EnableIf(nameof(HasConnectedSheets))]
 #endif
         public void Export()

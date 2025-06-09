@@ -16,7 +16,7 @@
     [CreateAssetMenu(menuName = "UniGame/Google/PipelineImporter",fileName = nameof(PipelineImporter))]
     public class PipelineImporter : BaseSpreadsheetProcessor
     {
-        private static Color _oddColor = new Color(0.2f, 0.4f, 0.3f);
+        private static Color _oddColor = new(0.2f, 0.4f, 0.3f);
         
 #if ODIN_INSPECTOR
         [Tooltip("If true, the asset database will not be refreshed after importing. This is useful if you want to import assets without having them show up in the project view.")]
@@ -36,7 +36,7 @@
 #if ODIN_INSPECTOR
         [ListDrawerSettings(ElementColor = nameof(GetElementColor),ListElementLabelName = "Name")]//OnEndListElementGUI = "BeginDrawImporterElement"
 #endif
-        public List<SpreadsheetProcessorValue> importers = new List<SpreadsheetProcessorValue>();
+        public List<SpreadsheetProcessorValue> importers = new();
 
         public override bool CanImport => importers
             .Where(x => x.HasValue)
