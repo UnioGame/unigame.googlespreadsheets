@@ -5,12 +5,19 @@ Unity3D Google Spreadsheet export/import library
 
 **Odin Inspector Asset recommended to usage with this Package (https://odininspector.com)**
 
+As an alternative you can use Tri-Inspector Open Source Asset - https://github.com/codewriter-packages/Tri-Inspector
+
+Or Alchemy Open Source Asset - https://github.com/annulusgames/Alchemy
+
 # Installation
+
+## UPM Installation
 
 Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json new dependency:
 
 ```json
   "dependencies": {
+        "unigame.unityspreadsheets" : "https://github.com/UnioGame/unigame.googlespreadsheets.git",
         "com.unity.addressables": "2.6.0",
         "com.unigame.addressablestools" : "https://github.com/UnioGame/unigame.addressables",
         "com.unigame.typeconverters" : "https://github.com/UnioGame/unigame.typeconverters.git",
@@ -22,6 +29,56 @@ Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json n
         "com.unity.nuget.newtonsoft-json": "3.0.2"
 }
 ```
+
+
+## Connect to Google Spreadsheet
+
+### Editor Window
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/menu.png)
+
+
+### Create Google Api Credentials
+
+
+- HOWTO create api credentials https://developers.google.com/sheets/api/quickstart/dotnet
+
+**IMPORTANT**
+
+When you create an Desktop API KEY:
+
+![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/webapp2.png)
+
+![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/webapp3.png)
+
+- Setup path to credential .json file and press "Connect Spreadsheet" 
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editorapikey.png)
+
+- Under target Google Profile allow application access to spreadsheets
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editorapikey2.png)
+
+- If you done everything correctly, you will see message in the console
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/login_done.png)
+
+
+### Spreadsheet Id's
+
+- Now you can specify your spreadsheets
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editor.png)
+
+- Id's of your sheet can be found right from web page url
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/sheetid.png)
+
+- Copy your table id and paste into importer window field
+
+![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/sheetid1.png)
+
+
 
 ## Features
 
@@ -261,87 +318,11 @@ For example:
 
 ![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/Import%20Characters%20from%20Spreadsheets1.gif)
 
-
-## Connect to Google Spreadsheet
-
-### Editor Window
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/menu.png)
-
-
-### Create Google Api Credentials
-
-
-- HOWTO create api credentials https://developers.google.com/sheets/api/quickstart/dotnet
-
-**IMPORTANT**
-
-When you create an Desktop API KEY:
-
-![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/webapp2.png)
-
-![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/webapp3.png)
-
-- Setup path to credential .json file and press "Connect Spreadsheet" 
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editorapikey.png)
-
-- Under target Google Profile allow application access to spreadsheets
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editorapikey2.png)
-
-
-### Spreadsheet Id's
-
-- Now you can specify your spreadsheets
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/editor.png)
-
-- Id's of your sheet can be found right from web page url
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/sheetid.png)
-
-- Copy your table id and paste into importer window field
-
-![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/sheetid1.png)
-
-
 ## Google API V4 .NET References
 
 - https://developers.google.com/sheets/api/quickstart/dotnet
 
 - https://googleapis.dev/dotnet/Google.Apis.Sheets.v4/latest/api/Google.Apis.Sheets.v4.html
-
-## UPM Installation
-
-Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json new dependency:
-
-```json
-{
-  "dependencies": {
-    "unigame.unityspreadsheets" : "https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter.git",
-  }
-}
-
-```
-
-### Official Newtonsoft.Json Unity Package
-
-```json
-{
-  "name": "com.unity.nuget.newtonsoft-json",
-  "displayName": "Newtonsoft Json",
-  "version": "2.0.0",
-  "unity": "2018.4",
-  "description": "Newtonsoft Json for use in Unity projects and Unity packages. Currently synced to version 12.0.2.\n\nThis package is used for advanced json serialization and deserialization. Most Unity users will be better suited using the existing json tools built into Unity.\nTo avoid assembly clashes, please use this package if you intend to use Newtonsoft Json.",
-  "type": "library",
-  "repository": {
-    "type": "git",
-    "url": "git@github.cds.internal.unity3d.com:unity/com.unity.nuget.newtonsoft-json.git",
-    "revision": "74ca86c283a2f63ba5b687451a0842ba924da907"
-  }
-}
-```
 
 ## Co-Processors
 
