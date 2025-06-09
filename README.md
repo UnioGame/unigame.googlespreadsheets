@@ -16,17 +16,12 @@ Or Alchemy Open Source Asset - https://github.com/annulusgames/Alchemy
 Add to your project manifiest by path [%UnityProject%]/Packages/manifiest.json new dependency:
 
 ```json
-  "dependencies": {
-        "unigame.unityspreadsheets" : "https://github.com/UnioGame/unigame.googlespreadsheets.git",
-        "com.unity.addressables": "2.6.0",
-        "com.unigame.addressablestools" : "https://github.com/UnioGame/unigame.addressables",
-        "com.unigame.typeconverters" : "https://github.com/UnioGame/unigame.typeconverters.git",
-        "com.unigame.unicore": "https://github.com/UnioGame/unigame.core.git",
-        "com.unigame.localization": "https://github.com/UnioGame/unigame.localization.git",
-        "com.unigame.rx": "https://github.com/UnioGame/unigame.rx.git",
-        "com.cysharp.unitask" : "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
-        "com.unigame.google.api.v4" :  "https://github.com/UnioGame/google.api.v4.git",
-        "com.unity.nuget.newtonsoft-json": "3.0.2"
+"dependencies" : {
+    "unigame.unityspreadsheets" : "https://github.com/UnioGame/unigame.googlespreadsheets.git",
+    "com.unigame.typeconverters" : "https://github.com/UnioGame/unigame.typeconverters.git",
+    "com.unigame.unicore": "https://github.com/UnioGame/unigame.core.git",
+    "com.cysharp.unitask" : "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask",
+    "com.unigame.google.api.v4" :  "https://github.com/UnioGame/google.api.v4.git"
 }
 ```
 
