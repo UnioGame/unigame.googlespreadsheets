@@ -34,33 +34,82 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
         }
         
-        public static bool UpdateSheetValue(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField)
+        public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField)
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId,sheetKeyField);
         }
         
-        public static bool UpdateSheetValues(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField, object keyValue)
+        public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField, object keyValue)
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId,sheetKeyField, keyValue);
         }
         
-        public static bool UpdateSheetValue(this ISpreadsheetData data, object source)
+        public static bool UpdateValue(this ISpreadsheetData data, object source)
         {
             return DefaultProcessor.UpdateSheetValue(source, data);
         }
         
-        public static bool UpdateSheetValue(this ISpreadsheetData data,object source, string sheetId)
+        public static bool UpdateValue(this ISpreadsheetData data,object source, string sheetId)
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
         }
 
-        public static bool UpdateListValue<T>(this ISpreadsheetData data, List<T> source, string sheetId,
+        public static bool UpdateValue<T>(this ISpreadsheetData data, List<T> source, string sheetId,
             string sheetKeyField)
             where T : new()
         {
             return UpdateListValue(source,data, sheetId, sheetKeyField);
         }
 
+        public static bool ApplyData<T>(this ISpreadsheetData data,List<T> source, 
+            string sheetId,
+            string sheetKeyField)
+            where T : new()
+        {
+            return ApplySpreadsheetData(source, data, sheetId, sheetKeyField);
+        }
+        
+        public static object ApplyData(this ISpreadsheetData data,object asset)
+        {
+            return DefaultProcessor.ApplyData(asset,data);
+        }
+        
+        public static object ApplyData(
+            this ISpreadsheetData spreadsheetData,
+            object asset,
+            string sheetName,
+            object keyValue = null,
+            string sheetFieldName = "")
+        {
+            return ApplySpreadsheetData(asset, spreadsheetData, sheetName, keyValue, sheetFieldName);
+        }
+        
+        public static List<Object> SyncAssets(
+            this ISpreadsheetData spreadsheetData,
+            Type filterType,
+            string folder,
+            Object[] assets = null,
+            bool createMissing = true,
+            int maxItemsCount = -1,
+            string overrideSheetId = "")
+        {
+            return SyncFolderAssets(filterType, folder, spreadsheetData, 
+                assets, createMissing, maxItemsCount,
+                overrideSheetId);
+        }
+                
+        public static List<Object> SyncAssets(
+            this ISpreadsheetData spreadsheetData,
+            Type type, 
+            string folder,
+            bool createMissing)
+        {
+            return DefaultProcessor.SyncFolderAssets(type, folder, createMissing, spreadsheetData);
+        }
+        
+        
+
+        
         public static bool UpdateListValue<T>(this List<T> source, ISpreadsheetData data, string sheetId, string sheetKeyField)
             where T : new()
         {
@@ -81,13 +130,6 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return true;
         }
 
-        public static bool ApplySpreadsheetData<T>(this ISpreadsheetData data,List<T> source, 
-            string sheetId,
-            string sheetKeyField)
-            where T : new()
-        {
-            return ApplySpreadsheetData(source, data, sheetId, sheetKeyField);
-        }
 
         public static bool ApplySpreadsheetData<T>(this List<T> source, ISpreadsheetData data, string sheetId, string sheetKeyField)
             where T : new()
@@ -109,19 +151,6 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return true;
         }
 
-        public static List<Object> SyncFolderAssets(
-            this ISpreadsheetData spreadsheetData,
-            Type filterType,
-            string folder,
-            Object[] assets = null,
-            bool createMissing = true,
-            int maxItemsCount = -1,
-            string overrideSheetId = "")
-        {
-            return SyncFolderAssets(filterType, folder, spreadsheetData, 
-                assets, createMissing, maxItemsCount,
-                overrideSheetId);
-        }
 
         public static List<Object> SyncFolderAssets(
             this Type filterType, 
@@ -135,15 +164,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return DefaultProcessor
                 .SyncFolderAssets(filterType, folder, spreadsheetData,assets, createMissing, maxItemsCount, overrideSheetId);
         }
-        
-        public static List<Object> SyncFolderAssets(
-            this ISpreadsheetData spreadsheetData,
-            Type type, 
-            string folder,
-            bool createMissing)
-        {
-            return DefaultProcessor.SyncFolderAssets(type, folder, createMissing, spreadsheetData);
-        }
+
         
         public static List<Object> SyncFolderAssets(
             this Type type, 
@@ -152,16 +173,6 @@ namespace UniGame.GoogleSpreadsheets.Editor
             ISpreadsheetData spreadsheetData)
         {
             return DefaultProcessor.SyncFolderAssets(type, folder, createMissing, spreadsheetData);
-        }
-
-        public static object ApplySpreadsheetData(
-            this ISpreadsheetData spreadsheetData,
-            object asset,
-            string sheetName,
-            object keyValue = null,
-            string sheetFieldName = "")
-        {
-            return ApplySpreadsheetData(asset, spreadsheetData, sheetName, keyValue, sheetFieldName);
         }
 
         public static object ApplySpreadsheetData(
@@ -209,17 +220,14 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return DefaultProcessor.ApplyData(sheetValueInfo);
         }
 
-        public static object ApplySpreadsheetData(this ISpreadsheetData data,object asset)
-        {
-            return DefaultProcessor.ApplyData(asset,data);
-        }
         
         public static object ApplySpreadsheetData(this object asset, ISpreadsheetData data)
         {
             return DefaultProcessor.ApplyData(asset,data);
         }
         
-        public static object ApplySpreadsheetData(this object asset,
+        public static object ApplySpreadsheetData(
+            this object asset,
             SheetSyncScheme syncAsset, 
             ISpreadsheetData data)
         {
