@@ -16,7 +16,12 @@
         #region static data
 
         private static MemorizeItem<string, string> _fieldKeyFactory = MemorizeTool
-            .Memorize<string, string>(x => x.TrimStart('_').ToLower());
+            .Memorize<string, string>(x =>
+            {
+                var key = x.TrimStart('_').ToLower();
+                key = key.Replace(" ", string.Empty);
+                return key;
+            });
         
         private static MemorizeItem<string, string> _fieldToColumnFactory = MemorizeTool
             .Memorize<string, string>(FieldToColumnName);
