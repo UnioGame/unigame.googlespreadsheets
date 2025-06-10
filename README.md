@@ -103,6 +103,73 @@ Now you can specify your spreadsheets
 
 Menu: "UniGame/Google Spreadsheet/Google Spreadsheet Asset"
 
+## Custom Data Export and Import
+
+You can make you own exporter by inheriting from:
+
+- `SerializableSpreadsheetProcessor
+- `BaseSpreadsheetProcessor`
+ 
+```csharp
+
+public class GameConfigurationProcessor : BaseSpreadsheetProcessor
+{
+    public override bool CanImport => true;
+    public override bool CanExport => true;
+    
+    public override ISpreadsheetData ImportObjects(ISpreadsheetData spreadsheetData)
+    {
+        return spreadsheetData;
+    }
+    
+    public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
+    {
+        return spreadsheetData;
+    }
+}
+
+```
+
+Example of writing custom value into spreadsheet. 
+The method try to find related columns from spreadsheet and write value from source object
+
+Some helper methods can be found in `SpreadsheetExtensions.cs`
+
+```csharp
+public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
+{
+    //get all assets locations for filtering
+    var locations = importLocations
+        .Select(AssetDatabase.GetAssetPath)
+        .ToArray();
+    
+    var weaponConfigs = AssetEditorTools
+        .GetAssets<WeaponData>(locations);
+    foreach (var config in weaponConfigs)
+    {
+        //write value to spreadsheet
+        spreadsheetData.UpdateValue(config, tableName);
+    }
+    
+    return spreadsheetData;
+}
+```
+
+If you need to format you column or field names you can use these methods from SheetData class:
+
+```csharp
+
+public static string FieldToColumnName(string fieldName)
+    
+public static string ColumnNameToFieldCamelCase(string columnName)
+
+//remove _ prefix from field name
+public static string FormatKey(string key) 
+
+````
+
+But in most cases it not nessesary, because SheetData will try to apply this formatting automatically.
+
 ![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/create_spreadsheet_asset.png)
 
 ## Data Definitions
