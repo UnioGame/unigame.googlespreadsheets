@@ -135,6 +135,12 @@ namespace UniGame.GoogleSpreadsheets.Editor
                 loadedData.Add(data);
             }
 
+            var loadedSheetNames = loadedData
+                .Select(x => x.Name)
+                .Aggregate((x, y) => $" {x}  {y} ");
+            
+            Debug.Log($"SpreadSheets loaded: {loadedSheetNames}");
+            
             return loadedData;
         }
 

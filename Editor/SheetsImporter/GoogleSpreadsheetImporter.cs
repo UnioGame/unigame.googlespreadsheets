@@ -33,7 +33,7 @@
         /// <summary>
         /// list of assets linked by attributes
         /// </summary>
-        [Space(10)]
+        [Space(20)]
 #if ODIN_INSPECTOR
         [TabGroup(ImporterTab, ImporterTab)]
         [HorizontalGroup("importers/importers/handlers")]
@@ -48,6 +48,7 @@
 #endif
         public SpreadsheetHandler sheetsItemsHandler = new();
 
+        [Space(20)]
 #if ODIN_INSPECTOR
         [TabGroup(ImporterTab, SettingsTab)] 
         [InlineProperty] 
@@ -138,8 +139,7 @@
         [EnableIf(nameof(HasConnectedSheets))]
 #endif
 #if ALCHEMY_INSPECTOR
-        [Order(1)]
-        [HorizontalGroup(ButtonsActionsGroup)]
+        [HorizontalGroup(ButtonsGroup)]
         [EnableIf(nameof(HasConnectedSheets))]
         [Button]
 #endif
@@ -168,8 +168,7 @@
         [EnableIf(nameof(HasConnectedSheets))]
 #endif
 #if ALCHEMY_INSPECTOR
-        [Order(1)]
-        [HorizontalGroup(ButtonsActionsGroup)]
+        [HorizontalGroup(ButtonsGroup)]
         [EnableIf(nameof(HasConnectedSheets))]
         [Button]
 #endif
