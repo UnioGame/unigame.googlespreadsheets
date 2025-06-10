@@ -350,7 +350,7 @@
             
             if (HasColumn(titleKey)) return false;
  
-            _headers.Add(title);
+            _headers.Add(titleKey);
             _table.Columns.Add(titleKey);
             
             AcceptChanges();
