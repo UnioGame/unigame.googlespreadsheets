@@ -57,7 +57,7 @@
         
         public static string FormatToFieldName(string columnName) => _columnToFieldFactory[columnName];
 
-        public static bool IsEquals(string key1, string key2) => FormatKey(key1) == FormatKey(key2);
+        public static bool IsEquals(string key1, string key2) => IsEqualsNames(key1,key2);
         
         public static bool IsEqualsNames(string key,string columnName)
         {
@@ -65,7 +65,12 @@
                 return true;
             
             var value = FormatKey(key);
+            
             if(value.Equals(columnName,StringComparison.InvariantCultureIgnoreCase)) 
+                return true;
+            
+            var columnKey = FormatKey(columnName);
+            if(value.Equals(columnKey,StringComparison.InvariantCultureIgnoreCase)) 
                 return true;
             
             value = FormatToColumnName(key);
