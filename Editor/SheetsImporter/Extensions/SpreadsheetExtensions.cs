@@ -61,7 +61,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return UpdateListValue(source,data, sheetId, sheetKeyField);
         }
 
-        public static bool ApplyData<T>(this ISpreadsheetData data,List<T> source, 
+        public static bool ReadData<T>(this ISpreadsheetData data,List<T> source, 
             string sheetId,
             string sheetKeyField)
             where T : new()
@@ -69,12 +69,12 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return ApplySpreadsheetData(source, data, sheetId, sheetKeyField);
         }
         
-        public static object ApplyData(this ISpreadsheetData data,object asset)
+        public static object ReadData(this ISpreadsheetData data,object asset)
         {
             return DefaultProcessor.ApplyData(asset,data);
         }
         
-        public static object ApplyData(
+        public static object ReadData(
             this ISpreadsheetData spreadsheetData,
             object asset,
             string sheetName,
@@ -106,9 +106,6 @@ namespace UniGame.GoogleSpreadsheets.Editor
         {
             return DefaultProcessor.SyncFolderAssets(type, folder, createMissing, spreadsheetData);
         }
-        
-        
-
         
         public static bool UpdateListValue<T>(this List<T> source, ISpreadsheetData data, string sheetId, string sheetKeyField)
             where T : new()
