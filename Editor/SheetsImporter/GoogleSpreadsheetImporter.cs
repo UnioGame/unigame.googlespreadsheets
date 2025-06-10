@@ -140,8 +140,8 @@
 #if ALCHEMY_INSPECTOR
         [Order(1)]
         [HorizontalGroup(ButtonsActionsGroup)]
-        [Button]
         [EnableIf(nameof(HasConnectedSheets))]
+        [Button]
 #endif
         public void Import()
         {
@@ -170,8 +170,8 @@
 #if ALCHEMY_INSPECTOR
         [Order(1)]
         [HorizontalGroup(ButtonsActionsGroup)]
-        [Button]
         [EnableIf(nameof(HasConnectedSheets))]
+        [Button]
 #endif
         public void Export()
         {

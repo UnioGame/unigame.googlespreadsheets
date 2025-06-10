@@ -73,9 +73,9 @@
 #endif
 #if ALCHEMY_INSPECTOR
         [HorizontalGroup(CommandsGroup)]
-        [Button]
         [EnableIf(nameof(IsValidData))]
         [ShowIf(nameof(CanImport))]
+        [Button]
 #endif
         public void Import()
         {
@@ -111,9 +111,9 @@
 #endif
 #if ALCHEMY_INSPECTOR
         [HorizontalGroup(CommandsGroup)]
-        [Button]
         [EnableIf(nameof(IsValidData))]
         [ShowIf(nameof(CanExport))]
+        [Button]
 #endif
         public void Export()
         {
