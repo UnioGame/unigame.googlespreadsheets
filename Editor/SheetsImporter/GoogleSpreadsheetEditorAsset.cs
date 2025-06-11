@@ -3,7 +3,7 @@
     using CoProcessors;
     using UniModules;
     using UniModules.Editor;
-    using UniModules.UniGame.TypeConverters.Editor;
+    using TypeConverters.Editor;
     using UnityEditor;
     using UnityEngine;
 

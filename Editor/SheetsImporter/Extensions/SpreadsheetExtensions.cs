@@ -6,8 +6,8 @@ namespace UniGame.GoogleSpreadsheets.Editor
     using System;
     using System.Collections.Generic;
     using CoProcessors;
-    using UniModules.UniGame.TypeConverters.Editor;
-    using UniModules.UniGame.TypeConverters.Editor.Abstract;
+    using TypeConverters.Editor;
+    using TypeConverters.Editor.Abstract;
     using Object = UnityEngine.Object;
 
     public static class SpreadsheetExtensions
