@@ -13,8 +13,9 @@
 
         public SyncValueType valueType = SyncValueType.Field;
         public Type targetType;
+        
         public string objectField = string.Empty;
-        public string sheetField= string.Empty;
+        public string sheetField = string.Empty;
         public bool isKeyField = false;
         public bool allowRead = true;
         public bool allowWrite = true;
@@ -41,6 +42,15 @@
 
         public SyncValue ApplyValue(object source, object value)
         {
+            switch (valueType)
+            {
+                case SyncValueType.Field:
+                    fieldInfo.SetValue(source,value);
+                    break;
+                case SyncValueType.Property:
+                    propertyInfo.SetValue(source,value);
+                    break;
+            }
             fieldInfo.SetValue(source, value);
             return this;
         }
