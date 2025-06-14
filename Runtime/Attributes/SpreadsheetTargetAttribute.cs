@@ -3,7 +3,7 @@
     using System;
     using global::UniGame.GoogleSpreadsheets.Runtime;
 
-    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Field)]
+    [AttributeUsage(AttributeTargets.Class|AttributeTargets.Field|AttributeTargets.Property)]
     public class SpreadsheetTargetAttribute : Attribute, ISpreadsheetDescription
     {
         private string _sheetName = string.Empty;

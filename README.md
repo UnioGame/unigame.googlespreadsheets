@@ -155,6 +155,107 @@ public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
 }
 ```
 
+
+Example of full custom import/export processor
+
+```csharp
+
+public class GameConfigurationImporter : BaseSpreadsheetProcessor 
+{
+    //Id table name for synchronization with spreadsheet
+    //use can use property with asset name ofc as an id
+    public string idFieldName = "Id";
+    public string tableName = string.Empty;
+    public bool createTable = false;
+    public string[] importLocations = Array.Empty<string>();
+
+    public override ISpreadsheetData ImportObjects(ISpreadsheetData spreadsheetData)
+    {
+        //get all assets by type and locations. This method just return the array of asset from somewhere
+        var assets = GetAsset<WeaponData>(importLocations)
+
+        foreach (var weapon in assets)
+        {
+            spreadsheetData.ReadData(weapon, tableName,idFieldName);
+        }
+
+        return spreadsheetData;
+    }
+
+    /// <summary>
+    /// Export all object from unity to spreadsheet
+    /// </summary>
+    public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
+    {
+        //get all assets by type and locations. This method just return the array of asset from somewhere
+        var weapons = GetAsset<WeaponData>(importLocations)
+
+        if (createTable)
+        {
+            CreateTable(typeof(WeaponData), spreadsheetData, tableName);
+        }
+
+        foreach (var config in weapons)
+        {
+            //write value to spreadsheet
+            spreadsheetData.UpdateValue(config, tableName,idFieldName);
+        }
+
+        return spreadsheetData;
+    }
+
+    /// <summary>
+    /// Create table in spreadsheet with all fields from value type
+    /// </summary>
+    public void CreateTable(Type value, ISpreadsheetData data, string tableId)
+    {
+        var fields = value.GetInstanceFields();
+        var sheet = data[tableId];
+
+        foreach (var field in fields)
+        {
+            if (sheet.HasColumn(field.Name)) continue;
+            sheet.AddHeader(field.Name);
+        }
+    }
+    
+}
+
+```
+
+Example of adding new custom columns and convert data to target format. 
+We are suppose what WeaponData has a lof of fields, but we want to export only some of them into spreadsheet.
+
+```csharp
+
+[Serializable]
+public class ItemEconomicsData
+{
+    public string id;//Id of item in spreadsheet
+    public WeaponType weaponType;//enum value
+    public ItemRarity itemRarity;//enum value
+    public CurrencyID currency;
+    public int price;//price in currency
+}
+
+// Example of Export method to write custom value into spreadsheet.
+public override void WriteToSheet(WeaponData value, ISpreadsheetData data, string tableId)
+{
+    var item = new ItemEconomicsData()
+    {
+        id = value.Id,
+        weaponType = value.weaponType,
+        itemRarity = value.ItemRarity,
+        inventoryItemType = value.InventoryItemType,
+        currency = value.CurrencyID,
+        price = value.Price,
+    };
+    
+    data.UpdateValue(item, tableId,idFieldName);
+}
+
+```
+
 If you need to format you column or field names you can use these methods from SheetData class:
 
 ```csharp
@@ -172,13 +273,10 @@ But in most cases it not nessesary, because SheetData will try to apply this for
 
 ![](https://github.com/UnioGame/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/create_spreadsheet_asset.png)
 
-## Data Definitions
+## Spreadsheet Data Definition
 
-### Import and Export Attributes
 
-=============
-
-**SpreadsheetTargetAttribute**
+### SpreadsheetTargetAttribute
 
 Allow to mark serializable class as Synched with Google Spreadsheet. 
 
@@ -189,9 +287,19 @@ Parameters:
 - keyField. Primary key field name for sync between spreadsheet and serialized class 
 - syncAllFields. If TRUE, then try to sync all class fields data. If FALSE - synchronized only fields marked with attribute **[SpreadSheetFieldAttribute]**
 
-=============
+### SpreadsheetIgnoreAttribute
 
-**SpreadSheetFieldAttribute**
+```csharp
+
+public class DemoSO : ScriptableObject{
+
+    [SpreadsheetIgnore]
+    public string someValue; // This field will be ignored during import/export process
+
+}
+```
+
+### SpreadSheetFieldAttribute
 
 All fields marked with this attribute will be synchronized with target Spreadsheet data
 
@@ -214,13 +322,11 @@ public class DemoSO : ScriptableObject{
     private string value;
 
 }
-
 ```
+
 ![](https://github.com/UniGameTeam/UniGame.GoogleSpreadsheetsImporter/blob/master/GitAssets/sheet_fields.png)
 
-=============
-
-Default Sheet Id
+### Default Sheet Id
 
 ```csharp
 

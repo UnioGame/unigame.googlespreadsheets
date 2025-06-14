@@ -84,7 +84,8 @@
 
             foreach (var field in fields)
             {
-                var attributeInfo = CustomAttributeExtensions.GetCustomAttribute<SpreadsheetValueAttribute>(field.FieldType);
+                var attributeInfo = CustomAttributeExtensions
+                    .GetCustomAttribute<SpreadsheetValueAttribute>(field.FieldType);
 
                 fieldsAttributes.Add(attributeInfo);
 
@@ -107,6 +108,11 @@
                 
                 var isKeyField = SheetData.IsEquals(keyFieldName, fieldName);
 
+                // Skip fields with SpreadsheetIgnoreAttribute
+                if (fieldInfo.HasCustomAttribute<SpreadsheetIgnoreAttribute>())
+                    continue;
+                
+                //check if field has a custom description attribute
                 var spreadsheetAttribute =
                     fieldInfo.GetCustomAttributes(typeof(SpreadsheetTargetAttribute), true)
                         .FirstOrDefault() as ISpreadsheetDescription;
