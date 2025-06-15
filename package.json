@@ -4,7 +4,7 @@
   "displayName": "UniGame Google Spreadsheets to Unity",
   "description": "Allow to import Google Spreadsheets to Unity and write it back to Google Spreadsheets",
   "unity": "2022.1",
-  "version": "2025.0.17",
+  "version": "2025.0.20",
   "keywords": [
     "nodes",
     "spreadsheet",

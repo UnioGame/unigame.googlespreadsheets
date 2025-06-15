@@ -48,10 +48,12 @@
                     fieldInfo.SetValue(source,value);
                     break;
                 case SyncValueType.Property:
-                    propertyInfo.SetValue(source,value);
+                    if(propertyInfo.CanWrite)
+                        propertyInfo.SetValue(source,value);
                     break;
             }
-            fieldInfo.SetValue(source, value);
+            if(fieldInfo!=null)
+                fieldInfo.SetValue(source, value);
             return this;
         }
 

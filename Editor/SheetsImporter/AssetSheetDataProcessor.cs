@@ -248,13 +248,13 @@
                 return source;
             }
 
-            var values = syncScheme.values;
+            //var values = syncScheme.values;
             
             for (var i = valueInfo.StartColumn; i < rowValues.Length; i++) 
             {
                 var columnName = table.Columns[i].ColumnName;
-                var key = SheetData.FormatKey(columnName);
-                var found = values.TryGetValue(key, out var itemField);
+                var itemField = syncScheme.GetFieldBySheetFieldName(columnName);
+                var found = itemField!=null;
                 if(!found) continue;
 
                 //check for recurvice call
@@ -269,19 +269,19 @@
 
                 itemField.ApplyValue(source, resultValue);
 
-                if (itemField.IsSheetTarget) {
-                    //initialize cache
-                    valueInfo.IgnoreCache = valueInfo.IgnoreCache ?? new HashSet<object>();
-                    valueInfo.IgnoreCache.Add(source);
+                if (!itemField.IsSheetTarget) continue;
+                
+                //initialize cache
+                valueInfo.IgnoreCache = valueInfo.IgnoreCache ?? new HashSet<object>();
+                valueInfo.IgnoreCache.Add(source);
 
-                    ApplyData(new SheetValueInfo
-                    {
-                        Source          = resultValue,
-                        SpreadsheetData = spreadsheetData,
-                        SyncScheme      = itemField.targetType.CreateSheetScheme(),
-                        IgnoreCache     = valueInfo.IgnoreCache
-                    });
-                }
+                ApplyData(new SheetValueInfo
+                {
+                    Source          = resultValue,
+                    SpreadsheetData = spreadsheetData,
+                    SyncScheme      = itemField.targetType.CreateSheetScheme(),
+                    IgnoreCache     = valueInfo.IgnoreCache
+                });
             }
 
             if (_coProcessorHandle != null)

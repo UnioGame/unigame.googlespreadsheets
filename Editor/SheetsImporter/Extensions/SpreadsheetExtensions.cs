@@ -5,6 +5,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using CoProcessors;
     using TypeConverters.Editor;
     using TypeConverters.Editor.Abstract;
@@ -34,12 +35,14 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
         }
         
-        public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField)
+        public static bool UpdateValue(this ISpreadsheetData data, object source, 
+            string sheetId, string sheetKeyField)
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId,sheetKeyField);
         }
         
-        public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, string sheetKeyField, object keyValue)
+        public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, 
+            string sheetKeyField, object keyValue)
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId,sheetKeyField, keyValue);
         }
@@ -54,7 +57,8 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
         }
 
-        public static bool UpdateValue<T>(this ISpreadsheetData data, List<T> source, string sheetId,
+        public static bool UpdateValue<T>(this ISpreadsheetData data, List<T> source, 
+            string sheetId,
             string sheetKeyField)
             where T : new()
         {
@@ -72,6 +76,37 @@ namespace UniGame.GoogleSpreadsheets.Editor
         public static object ReadData(this ISpreadsheetData data,object asset)
         {
             return DefaultProcessor.ApplyData(asset,data);
+        }
+        
+        public static object ReadData(this ISpreadsheetData spreadsheetData,
+            object asset,
+            string sheetName,
+            string sheetFieldName)
+        {
+            var valueType = asset.GetType();
+            
+            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic |
+                               BindingFlags.IgnoreCase;
+
+            var targetIdName = SheetData.FormatToFieldName(sheetFieldName);
+            var idField = valueType.GetField(targetIdName, bindingFlags);
+            var idProperty = valueType.GetProperty(targetIdName, bindingFlags);
+
+            var objectIdValue = idField != null 
+                ? idField.GetValue(asset) 
+                : idProperty?.GetValue(asset);
+
+            if (objectIdValue == null)
+            {
+                var fields = valueType.GetFields(bindingFlags);
+                var targetField = fields.FirstOrDefault(x=>
+                    x.Name.Contains(targetIdName, StringComparison.OrdinalIgnoreCase));
+                objectIdValue = targetField!=null 
+                    ? targetField.GetValue(asset) 
+                    : null;
+            }
+            
+            return ApplySpreadsheetData(asset, spreadsheetData, sheetName, objectIdValue, sheetFieldName);
         }
         
         public static object ReadData(
