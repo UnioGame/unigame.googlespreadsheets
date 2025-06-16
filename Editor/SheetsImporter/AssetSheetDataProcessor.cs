@@ -422,7 +422,8 @@
             var sheetId         = sheetValueInfo.SheetName;
 
             var sheet = spreadsheetData[sheetId];
-            var row   = sheet.GetRow(sheetValueInfo.SyncFieldName, sheetValueInfo.SyncFieldValue) ?? sheet.CreateRow();
+            var row   = sheet.GetRow(sheetValueInfo.SyncFieldName, sheetValueInfo.SyncFieldValue) ?? 
+                        sheet.CreateRow();
 
             //var sheetFields = SelectSheetFields(schemaValue, data);
             var values = schemeValue.values;
@@ -437,6 +438,17 @@
             }
 
             return true;
+        }
+        
+        public bool UpdateCellValue(SheetData sheet,
+            string key,
+            object keyValue,
+            string target,object value)
+        {
+            var row   = sheet.GetRow(key,keyValue) ?? 
+                        sheet.CreateRow();
+
+            return sheet.UpdateValue(row, target, value);
         }
 
         public IEnumerable<SyncValue> SelectSheetFields(SheetSyncScheme schemaValue, SheetData data)
