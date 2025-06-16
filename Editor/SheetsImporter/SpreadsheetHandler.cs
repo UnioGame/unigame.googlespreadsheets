@@ -18,7 +18,7 @@
 #endif
     
     [Serializable]
-    public class SpreadsheetHandler : ISpreadsheetAssetsProcessor, IResetable
+    public class SpreadsheetHandler : ISpreadsheetAssetsProcessor, IResettable
     {
         private static Color _oddColor = new(0.2f, 0.4f, 0.3f);
         
