@@ -83,6 +83,25 @@ namespace UniGame.GoogleSpreadsheets.Editor
                 .UpdateCellValue(sheetData,key,keyValue,
                 targetCell,value);
         }
+        
+        public static bool ReadCellValue(this ISpreadsheetData data,
+            object target,
+            string targetName,
+            Type targetType,
+            string sheetId,
+            string key,
+            object keyValue,
+            string sheetColumn)
+        {
+            var sheetData = data[sheetId];
+            if (sheetData == null) return false;
+            
+            return DefaultProcessor.ApplyCellData(target,
+                targetName, 
+                targetType, 
+                sheetData, 
+                key, keyValue,sheetColumn);
+        }
 
         public static bool ReadData<T>(this ISpreadsheetData data,List<T> source, 
             string sheetId,

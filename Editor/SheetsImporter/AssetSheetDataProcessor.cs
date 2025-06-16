@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Linq;
+    using System.Reflection;
     using CoProcessors.Abstract;
     using Core.Runtime.Extension;
     using UniModules.Editor;
@@ -236,6 +237,52 @@
             }
         }
 
+        public bool ApplyCellData(object target, 
+            string targetField,
+            Type targetType,
+            SheetData table,
+            string key,
+            object keyValue,
+            string sheetColumn)
+        {
+            var row = table.GetRow(key, keyValue);
+            if (row == null) return false;
+
+            var columnName = SheetData.FormatToColumnName(sheetColumn);
+            var rowValue = row[columnName];
+            var result  = rowValue.ConvertType(targetType);
+                
+            var resultValue = result.Result;
+
+            return ApplyValue(target, resultValue, targetField);
+        }
+        
+        public bool ApplyValue(object source, object value, string targetName)
+        {
+            if (source == null) return false;
+
+            var binding = BindingFlags.IgnoreCase |
+                          BindingFlags.NonPublic |
+                          BindingFlags.Public |
+                          BindingFlags.Instance;
+            
+            var type = source.GetType();
+            var fieldInfo = type.GetField(targetName,binding);
+            var propertyInfo = type.GetProperty(targetName,binding);
+
+            if (propertyInfo != null)
+            {
+                if(propertyInfo.CanWrite)
+                    propertyInfo.SetValue(source,value);
+            }
+            if (fieldInfo != null)
+            {
+                fieldInfo.SetValue(source,value);
+            }
+            
+            return true;
+        }
+        
         private object ApplyData(SheetValueInfo valueInfo, DataRow row)
         {
             var syncScheme      = valueInfo.SyncScheme;
