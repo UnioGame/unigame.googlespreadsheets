@@ -19,7 +19,7 @@
         private IGoogleSpreadsheetClient _client;
         private IGooglsSpreadsheetClientStatus _status;
         
-        private LifeTimeDefinition _lifeTimeDefinition = new();
+        private LifeTime _lifeTimeDefinition = new();
 
         #region public properties
 
@@ -58,7 +58,7 @@
             _status = null;
 
             _lifeTimeDefinition.Terminate();
-            _lifeTimeDefinition = new LifeTimeDefinition();
+            _lifeTimeDefinition = new LifeTime();
         }
 
         public ISpreadsheetData Import(ISpreadsheetData spreadsheetData)

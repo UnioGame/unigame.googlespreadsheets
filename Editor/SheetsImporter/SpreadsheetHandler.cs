@@ -47,13 +47,13 @@
 
         private ISpreadsheetData _spreadsheetData;
         private IGoogleSpreadsheetClient _client;
-        private LifeTimeDefinition _lifeTime;
+        private LifeTime _lifeTime;
 
         #endregion
 
         public string Name => string.IsNullOrEmpty(importerName) ? GetType().Name : importerName;
 
-        public ILifeTime LifeTime => _lifeTime ??= new LifeTimeDefinition();
+        public ILifeTime LifeTime => _lifeTime ??= new LifeTime();
 
         public IEnumerable<ISpreadsheetProcessor> Importers => importers
             .Where(x => x.HasValue)

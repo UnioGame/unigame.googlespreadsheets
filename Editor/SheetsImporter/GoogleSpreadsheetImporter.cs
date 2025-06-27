@@ -65,7 +65,7 @@
 
         #region private data
 
-        private LifeTimeDefinition _lifeTime;
+        private LifeTime _lifeTime;
 
         private GoogleSpreadsheetClient _sheetClient;
 
@@ -81,7 +81,7 @@
                                           Client.Status!=null &&
                                           Client.Status.HasConnectedSheets;
 
-        public ILifeTime LifeTime => (_lifeTime ??= new LifeTimeDefinition());
+        public ILifeTime LifeTime => (_lifeTime ??= new LifeTime());
 
         public IGoogleSpreadsheetClient Client => (_sheetClient ??= CreateClient());
 

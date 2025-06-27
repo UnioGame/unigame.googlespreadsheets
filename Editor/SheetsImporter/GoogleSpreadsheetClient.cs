@@ -19,7 +19,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
         private readonly string[] _scope;
 
         private List<GoogleSpreadsheetConnection> _connections = new();
-        private LifeTimeDefinition _lifeTime = new();
+        private LifeTime _lifeTime = new();
 
         private string _credentialsPath;
         private string _user;
