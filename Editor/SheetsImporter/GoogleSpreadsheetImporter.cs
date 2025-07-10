@@ -65,7 +65,7 @@
 
         #region private data
 
-        private LifeTime _lifeTime;
+        private LifeTime _lifeTime = new();
 
         private GoogleSpreadsheetClient _sheetClient;
 
@@ -104,7 +104,7 @@
 #endif
         public void Reconnect()
         {
-            _lifeTime?.Release();
+            _lifeTime?.Restart();
 
             Client.Connect(settings.user, settings.credentialsPath);
 
@@ -129,7 +129,7 @@
             if (Directory.Exists(GoogleSpreadsheetConstants.TokenKey))
                 Directory.Delete(GoogleSpreadsheetConstants.TokenKey, true);
 
-            _lifeTime?.Release();
+            _lifeTime?.Restart();
         }
 
 #if ODIN_INSPECTOR

@@ -53,7 +53,7 @@ namespace UniGame.GoogleSpreadsheets.Editor
 
         public void Dispose() => _lifeTime.Terminate();
 
-        public void Disconnect() => _lifeTime.Release();
+        public void Disconnect() => _lifeTime.Restart();
 
         public SheetsService SheetsService
         {

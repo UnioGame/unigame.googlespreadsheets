@@ -47,7 +47,7 @@
 
         private ISpreadsheetData _spreadsheetData;
         private IGoogleSpreadsheetClient _client;
-        private LifeTime _lifeTime;
+        private LifeTime _lifeTime = new ();
 
         #endregion
 
@@ -62,7 +62,7 @@
         public bool CanImport => true;
         public bool CanExport => true;
 
-        public void Reset() => _lifeTime?.Release();
+        public void Reset() => _lifeTime?.Restart();
 
         public void Initialize(IGoogleSpreadsheetClient client)
         {
