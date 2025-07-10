@@ -140,11 +140,13 @@
 #endif
 #if ALCHEMY_INSPECTOR
         [HorizontalGroup(ButtonsGroup)]
-        [EnableIf(nameof(HasConnectedSheets))]
+        //[EnableIf(nameof(HasConnectedSheets))]
         [Button]
 #endif
         public void Import()
         {
+            if (!HasConnectedSheets) return;
+            
             //AssetDatabase.StartAssetEditing();
             try
             {
@@ -169,11 +171,13 @@
 #endif
 #if ALCHEMY_INSPECTOR
         [HorizontalGroup(ButtonsGroup)]
-        [EnableIf(nameof(HasConnectedSheets))]
+        //[EnableIf(nameof(HasConnectedSheets))]
         [Button]
 #endif
         public void Export()
         {
+            if (!HasConnectedSheets) return;
+            
             AssetDatabase.StartAssetEditing();
             try
             {
