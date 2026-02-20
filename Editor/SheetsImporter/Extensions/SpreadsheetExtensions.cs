@@ -147,6 +147,28 @@ namespace UniGame.GoogleSpreadsheets.Editor
             return ApplySpreadsheetData(asset, spreadsheetData, sheetName, objectIdValue, sheetFieldName);
         }
         
+        public static int FillData<TValue>(
+            this ISpreadsheetData spreadsheetData,
+            List<TValue> asset,
+            string sheetName,
+            string keyField = "")
+            where TValue : new()
+        {
+            var table = spreadsheetData[sheetName];
+            var key = string.IsNullOrEmpty(keyField) ? "id" : keyField;
+            var values = table.GetColumnValues(key);
+            var counter = 0;
+            foreach (var value in values)
+            {
+                var target = new TValue();
+                spreadsheetData.ReadData(target,sheetName, value, key);
+                asset.Add(target);
+                counter++;
+            }
+
+            return counter;
+        }
+        
         public static object ReadData(
             this ISpreadsheetData spreadsheetData,
             object asset,

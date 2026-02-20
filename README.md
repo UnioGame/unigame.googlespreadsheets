@@ -256,6 +256,24 @@ public override void WriteToSheet(WeaponData value, ISpreadsheetData data, strin
 
 ```
 
+You can fill list of models by table data in single line of code
+
+```csharp
+
+var levels = new List<LevelDataModel>();
+
+//here is your data will be filled by table
+spreadsheetData.FillData(levels, tableName);
+
+public static int FillData<TValue>(
+    this ISpreadsheetData spreadsheetData,
+    List<TValue> asset,
+    string sheetName,
+    string keyField = "")
+    where TValue : new()
+
+```
+
 If you need to format you column or field names you can use these methods from SheetData class:
 
 ```csharp
