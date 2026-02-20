@@ -16,7 +16,7 @@ namespace UniModules.UniGame.GoogleSpreadsheetsImporter.Editor.EditorWindow
     {
         #region static data
         
-        [MenuItem("UniGame/Google/Spreadsheet ImporterWindow")]
+        [MenuItem("UniGame/Google Spreadsheets/Spreadsheet ImporterWindow")]
         public static void Open()
         {
             var window = GetWindow<GoogleSheetImporterEditorWindow>();

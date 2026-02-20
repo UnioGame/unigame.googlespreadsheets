@@ -19,7 +19,7 @@
     using Sirenix.OdinInspector;
 #endif
     
-    //[CreateAssetMenu(menuName = "UniGame/Google/GoogleSpreadSheetImporter", fileName = nameof(GoogleSpreadsheetImporter))]
+    //[CreateAssetMenu(menuName = "UniGame/Google Spreadsheets/GoogleSpreadSheetImporter", fileName = nameof(GoogleSpreadsheetImporter))]
     public class GoogleSpreadsheetImporter : ScriptableObject, ILifeTimeContext
     {
         public const int DefaultButtonsWidth = 100;

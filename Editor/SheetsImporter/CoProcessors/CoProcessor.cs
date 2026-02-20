@@ -17,7 +17,7 @@
     using Alchemy.Inspector;
 #endif
 
-    [CreateAssetMenu(menuName = "UniGame/Google/CoProcessors/CoProcessor", fileName = nameof(CoProcessor))]
+    [CreateAssetMenu(menuName = "UniGame/Google Spreadsheets/CoProcessors/CoProcessor", fileName = nameof(CoProcessor))]
     public class CoProcessor : ScriptableObject, ICoProcessorHandle
     {
         #region static data

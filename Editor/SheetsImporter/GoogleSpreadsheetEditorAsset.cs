@@ -7,7 +7,7 @@
     using UnityEditor;
     using UnityEngine;
 
-    [CreateAssetMenu(menuName = "UniGame/Google/GoogleSpreadSheet Settings",
+    [CreateAssetMenu(menuName = "UniGame/Google Spreadsheets/GoogleSpreadSheet Settings",
         fileName = "GoogleSpreadSheet Settings")]
     public class GoogleSpreadsheetEditorAsset : ScriptableObject
     {
@@ -20,7 +20,7 @@
         #endregion
         
         [MenuItem("Assets/UniGame/Google Spreadsheet/Google Spreadsheet Asset")]
-        [MenuItem("Assets/Create/UniGame/Google/Google Spreadsheet Asset")]
+        [MenuItem("Assets/Create/UniGame/Google Spreadsheets/Google Spreadsheet Asset")]
         public static void CreateAsset()
         {
             var activeObject = Selection.activeObject;
