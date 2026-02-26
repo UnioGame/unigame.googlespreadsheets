@@ -155,6 +155,41 @@ public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
 }
 ```
 
+Example of exporting custom value into cell
+
+```csharp
+
+    public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
+    {
+        var upgradeConfig = AssetEditorTools.GetAsset<CharacteristicsUpgradeConfig>();
+        var defaultUpgrades = upgradeConfig.config.defaultUpgrades;
+        
+        foreach (var data in defaultUpgrades)
+        {
+            var idName = nameof(data.Id);
+            var idValue = data.Id;
+            
+            spreadsheetData.UpdateValue(data,tableName);
+            spreadsheetData.UpdateValue(data.Upgrade,tableName,idName,idValue);
+            
+            var price = data.Price.Resources;
+            foreach (var upgradePrice in price)
+            {
+                var column = upgradePrice.Currency.ToStringFromCache();
+                spreadsheetData.UpdateCellValue(tableName,idName,idValue,column,upgradePrice.Amount);
+            }
+
+            spreadsheetData.UpdateValue(data.Price,tableName);
+        }
+        
+        var levelUpgrades = upgradeConfig.config.upgrades;
+        
+        return spreadsheetData;
+    }
+
+
+```
+
 
 Example of full custom import/export processor
 

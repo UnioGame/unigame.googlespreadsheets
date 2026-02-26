@@ -20,6 +20,7 @@
         public bool allowRead = true;
         public bool allowWrite = true;
         public SheetSyncScheme syncScheme;
+        public object fixedValue;
 
         public bool IsSheetTarget => syncScheme != null;
 
@@ -35,6 +36,8 @@
                     return fieldInfo.GetValue(source);
                 case SyncValueType.Property:
                     return propertyInfo.GetValue(source);
+                case SyncValueType.Value:
+                    return fixedValue;
             }
 
             return null;

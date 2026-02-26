@@ -442,8 +442,7 @@
             syncScheme.keyField = keyFieldName;
             syncScheme.keyValue = keyField;
             
-            if (keyField == null)
-                return false;
+            if (keyValue == null) return false;
 
             var sheetValueInfo = new SheetValueInfo
             {
