@@ -40,7 +40,6 @@ namespace UniGame.GoogleSpreadsheets.Editor
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId,sheetKeyField);
         }
-
         
         public static bool UpdateValue(this ISpreadsheetData data, object source, string sheetId, 
             string sheetKeyField, object keyValue)
@@ -55,14 +54,14 @@ namespace UniGame.GoogleSpreadsheets.Editor
         
         public static bool UpdateValue(this ISpreadsheetData data,object source, string sheetId)
         {
-            return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
+            return DefaultProcessor.UpdateSheetValue(source, data, sheetId);
         }
         
-        public static void UpdateValues<T>(this ISpreadsheetData sheet,IReadOnlyList<T> source, string sheetId)
+        public static void UpdateValues<T>(this ISpreadsheetData data,IReadOnlyList<T> source, string sheetId)
         {
             foreach (var value in source)
             {
-                DefaultProcessor.UpdateSheetValue(value, sheet,sheetId);
+                DefaultProcessor.UpdateSheetValue(value, data, sheetId);
             }
         }
 

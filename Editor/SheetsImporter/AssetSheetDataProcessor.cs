@@ -442,6 +442,8 @@
             syncScheme.keyField = keyFieldName;
             syncScheme.keyValue = keyField;
             
+            keyValue ??= keyField?.GetValue(source);
+            
             if (keyValue == null) return false;
 
             var sheetValueInfo = new SheetValueInfo
