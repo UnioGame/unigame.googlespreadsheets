@@ -57,10 +57,16 @@ namespace UniGame.GoogleSpreadsheets.Editor
         {
             return DefaultProcessor.UpdateSheetValue(source, data,sheetId);
         }
+        
+        public static void UpdateValues<T>(this ISpreadsheetData sheet,IReadOnlyList<T> source, string sheetId)
+        {
+            foreach (var value in source)
+            {
+                DefaultProcessor.UpdateSheetValue(value, sheet,sheetId);
+            }
+        }
 
-        public static bool UpdateValue<T>(this ISpreadsheetData data, List<T> source, 
-            string sheetId,
-            string sheetKeyField)
+        public static bool UpdateValues<T>(this ISpreadsheetData data, List<T> source, string sheetId, string sheetKeyField)
             where T : new()
         {
             return UpdateListValue(source,data, sheetId, sheetKeyField);

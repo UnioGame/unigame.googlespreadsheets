@@ -105,11 +105,12 @@ Menu: "UniGame/Google Spreadsheet/Google Spreadsheet Asset"
 
 ## Custom Data Export and Import
 
+
 You can make you own exporter by inheriting from:
 
 - `SerializableSpreadsheetProcessor
 - `BaseSpreadsheetProcessor`
- 
+
 ```csharp
 
 public class GameConfigurationProcessor : BaseSpreadsheetProcessor
@@ -130,26 +131,32 @@ public class GameConfigurationProcessor : BaseSpreadsheetProcessor
 
 ```
 
+### Export
+
 Example of writing custom value into spreadsheet. 
 The method try to find related columns from spreadsheet and write value from source object
+
+Important note: You should specify column names in spreadsheet or write column names with code
 
 Some helper methods can be found in `SpreadsheetExtensions.cs`
 
 ```csharp
 public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
 {
-    //get all assets locations for filtering
-    var locations = importLocations
-        .Select(AssetDatabase.GetAssetPath)
-        .ToArray();
+    //get some configs from somewhere
+    List<WeaponData> weaponConfigs = GetAssets<WeaponData>(locations);
     
-    var weaponConfigs = AssetEditorTools
-        .GetAssets<WeaponData>(locations);
-    foreach (var config in weaponConfigs)
+    foreach (var config in weaponConfigs)//write confgis one by one into spreadsheet
     {
         //write value to spreadsheet
         spreadsheetData.UpdateValue(config, tableName);
     }
+    
+    //write list of values into spreadsheet
+    spreadsheetData.UpdateValues(weaponConfigs,tableName);
+    
+    //write list of values into spreadsheet with custom id field name
+    spreadsheetData.UpdateValues(weaponConfigs,tableName,"Custom Id");
     
     return spreadsheetData;
 }
@@ -169,16 +176,22 @@ Example of exporting custom value into cell
             var idName = nameof(data.Id);
             var idValue = data.Id;
             
+            //white value into table
             spreadsheetData.UpdateValue(data,tableName);
+            
+            //write some custom value into cell with custom column name and custom id field vale
             spreadsheetData.UpdateValue(data.Upgrade,tableName,idName,idValue);
             
             var price = data.Price.Resources;
             foreach (var upgradePrice in price)
             {
                 var column = upgradePrice.Currency.ToStringFromCache();
+                
+                //update cell value by column name and id field value
                 spreadsheetData.UpdateCellValue(tableName,idName,idValue,column,upgradePrice.Amount);
             }
 
+            //write child object into table for more flat structure
             spreadsheetData.UpdateValue(data.Price,tableName);
         }
         
@@ -190,6 +203,51 @@ Example of exporting custom value into cell
 
 ```
 
+Create table and columns in spreadsheet with API
+
+```csharp
+
+public class GameConfigurationImporter : BaseSpreadsheetProcessor 
+{
+    //Id table name for synchronization with spreadsheet
+    //use can use property with asset name ofc as an id
+    public string idFieldName = "Id";
+    public string tableName = string.Empty;
+    
+    /// <summary>
+    /// Export all object from unity to spreadsheet
+    /// </summary>
+    public override ISpreadsheetData ExportObjects(ISpreadsheetData sheet)
+    {
+        //get all assets by type and locations. This method just return the array of asset from somewhere
+        var weapons = GetAsset<WeaponData>(importLocations)
+
+        var fields = typeof(WeaponData).GetInstanceFields();
+        var sheet = data[tableName];
+
+        foreach (var field in fields)
+        {
+            if (sheet.HasColumn(field.Name)) continue;
+            
+            //write column name into spreadsheet
+            sheet.AddHeader(field.Name);
+        }
+
+        foreach (var config in weapons)
+        {
+            //write value to spreadsheet
+            sheet.UpdateValue(config, tableName,idFieldName);
+        }
+
+        return sheet;
+    }
+    
+    
+}
+
+```
+
+### Import
 
 Example of full custom import/export processor
 
@@ -201,57 +259,27 @@ public class GameConfigurationImporter : BaseSpreadsheetProcessor
     //use can use property with asset name ofc as an id
     public string idFieldName = "Id";
     public string tableName = string.Empty;
-    public bool createTable = false;
-    public string[] importLocations = Array.Empty<string>();
 
     public override ISpreadsheetData ImportObjects(ISpreadsheetData spreadsheetData)
     {
-        //get all assets by type and locations. This method just return the array of asset from somewhere
-        var assets = GetAsset<WeaponData>(importLocations)
+        //This method just return the array of asset from somewhere
+        var assets = GetAssets<WeaponData>()
 
         foreach (var weapon in assets)
         {
+            //read data from spreadsheet by table name and default id field name
+            spreadsheetData.ReadData(weapon, tableName);
+            
+            //read data from spreadsheet by table name and id field name
             spreadsheetData.ReadData(weapon, tableName,idFieldName);
         }
+        
+        var weapons = new List<WeaponData>();
+        //fill list by table data in single line
+        //this method will add new items into list each call without clearing
+        spreadsheetData.FillData(weapons, tableName);
 
         return spreadsheetData;
-    }
-
-    /// <summary>
-    /// Export all object from unity to spreadsheet
-    /// </summary>
-    public override ISpreadsheetData ExportObjects(ISpreadsheetData spreadsheetData)
-    {
-        //get all assets by type and locations. This method just return the array of asset from somewhere
-        var weapons = GetAsset<WeaponData>(importLocations)
-
-        if (createTable)
-        {
-            CreateTable(typeof(WeaponData), spreadsheetData, tableName);
-        }
-
-        foreach (var config in weapons)
-        {
-            //write value to spreadsheet
-            spreadsheetData.UpdateValue(config, tableName,idFieldName);
-        }
-
-        return spreadsheetData;
-    }
-
-    /// <summary>
-    /// Create table in spreadsheet with all fields from value type
-    /// </summary>
-    public void CreateTable(Type value, ISpreadsheetData data, string tableId)
-    {
-        var fields = value.GetInstanceFields();
-        var sheet = data[tableId];
-
-        foreach (var field in fields)
-        {
-            if (sheet.HasColumn(field.Name)) continue;
-            sheet.AddHeader(field.Name);
-        }
     }
     
 }
@@ -286,7 +314,7 @@ public override void WriteToSheet(WeaponData value, ISpreadsheetData data, strin
         price = value.Price,
     };
     
-    data.UpdateValue(item, tableId,idFieldName);
+    data.UpdateValue(item, tableId, idFieldName);
 }
 
 ```
