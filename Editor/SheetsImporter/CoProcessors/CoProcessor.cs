@@ -1,4 +1,4 @@
-﻿namespace UniGame.GoogleSpreadsheets.Editor.CoProcessors
+namespace UniGame.GoogleSpreadsheets.Editor.CoProcessors
 {
     using System;
     using System.Collections.Generic;
@@ -54,7 +54,7 @@
         #endregion
         
 #if ODIN_INSPECTOR
-        [ListDrawerSettings(Expanded = true)]
+        [ListDrawerSettings(ShowFoldout = true)]
 #endif
 #if ALCHEMY_INSPECTOR
         [ListViewSettings]
